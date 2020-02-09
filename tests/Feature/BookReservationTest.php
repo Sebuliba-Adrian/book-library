@@ -15,7 +15,7 @@ class BookReservationTest extends TestCase
 
        $response = $this->post('/books', [
          'title' => 'Cool Book Title',
-         'author' => 'Victor',
+         'author' => 'Adrian',
        ]);
        $response->assertOk();
        $this->assertCount(1, Book::all());
@@ -25,7 +25,7 @@ class BookReservationTest extends TestCase
 
     $response = $this->post('/books', [
       'title' => '',
-      'author' => 'Victor',
+      'author' => 'Adrian',
     ]);
 
     $response->assertSessionHasErrors('title');
@@ -40,5 +40,23 @@ class BookReservationTest extends TestCase
       ]);
 
       $response->assertSessionHasErrors('author');
+   }
+
+   public function test_a_book_can_be_updated(){
+
+        $this->withoutExceptionHandling();
+        $this->post('/books', [
+            'title' => 'Cool Book Title',
+            'author' => 'Adrian',
+        ]);
+
+        $book = Book::first();
+       $response = $this->patch('/books/'.$book->id, [
+        'title' => 'New Title',
+        'author' => 'New Author',
+       ]);
+       $this->assertEquals('New Title', Book::first()->title);
+       $this->assertEquals('New Author', Book::first()->author);
+
    }
 }
