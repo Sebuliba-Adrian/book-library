@@ -14,4 +14,11 @@ class Author extends Model
     {
         $this->attributes['dob'] = Carbon::parse($dob);
     }
+
+    public function setAuthorIdAttribute($author){
+
+        $this->attribute['author_id']= (Author::firstOrCreate([
+          'name'=> $author,
+        ]))->id;
+    }
 }
