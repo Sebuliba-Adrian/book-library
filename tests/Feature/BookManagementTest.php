@@ -6,7 +6,7 @@ use App\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class BookReservationTest extends TestCase
+class BookManagementTest extends TestCase
 {
    use RefreshDatabase;
    public function test_a_book_can_be_added_to_the_library() {
